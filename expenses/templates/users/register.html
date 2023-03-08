@@ -4,18 +4,20 @@
   <div class="col-md-4">
     <div class="card mt-5">
       <div class="card-title">
-        <h4 class="text-center">Register</h4>
+        <h4 class="text-center">Create Account</h4>
       </div>
 
       <div class="card-body">
-        <form action="" method="post">
+        <form action="{% url 'users:register' %}" method="POST">
+          {% csrf_token %} {% include 'partials/_messages.html' %}
           <div class="form-group">
             <input
               type="text"
               name="username"
               id="usernameField"
               placeholder="Enter a Username"
-              class="form-control form-control-sm mb-2" />
+              class="form-control form-control-sm mb-2"
+              value="{{fieldValues.username}}" />
           </div>
           <!--display error-->
           <div
@@ -31,7 +33,8 @@
               name="email"
               placeholder="Enter an Email"
               class="form-control form-control-sm mb-2"
-              id="emailField" />
+              id="emailField"
+              value="{{fieldValues.email}}" />
           </div>
           <!--display error-->
           <div
@@ -49,10 +52,12 @@
           <small class="float-end text-muted showPasswordToggle"
             >show password</small
           >
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary submition" type="button submit">
+              Register
+            </button>
+          </div>
         </form>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button class="btn btn-primary" type="button">Register</button>
-        </div>
       </div>
     </div>
   </div>
