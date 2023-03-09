@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<div class="container mt-3">
+    <h5>Prefered Currency </h5>  
+    {% include 'partials/_messages.html' %}
+    <form action="{% url 'preferences:index' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <select name='currency' class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+
+                {% if user_pref.currency %}
+                    <option name="currency" selected value="{{user_pref.currency}}"> {{user_pref.currency}} </option>                  
+                {% endif %}    
+                          
+                {% for currency in currencies %}
+                    <option name="currency" 
+                    value="{{currency.name}} - {{currency.value}}" >
+                    {{currency.name}} - {{currency.value}}
+                    </option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-outline-secondary" type="button submit">save</button>
+        </div>
+    </form> 
+    <hr>
+</div>
+
+
+{% endblock content %}
