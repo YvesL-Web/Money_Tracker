@@ -7,7 +7,7 @@
         <li class="breadcrumb-item">
           <a href="{% url 'outlay:index' %}">Expenses</a>
         </li>
-        <li class="breadcrumb-item active">Add Expenses</li>
+        <li class="breadcrumb-item active">Edit Expenses</li>
       </ol>
     </nav>
   </div>
@@ -19,20 +19,20 @@
     {% include 'partials/_messages.html' %}
     <div class="card">
       <div class="card-body">
-        <form action="{% url 'outlay:add_outlay' %}" method="POST">
+        <form action="{% url 'outlay:edit_outlay' outlay.pk %}" method="POST">
           {% csrf_token %}
           <div class="form-group mb-3">
             <label for="">Amount: </label>
-            <input type="text" class="form-control form-control" name="amount" value="{{values.amount}}" required />
+            <input type="text" class="form-control form-control" name="amount" value="{{outlay.amount}}" required />
           </div>
           <div class="form-group mb-3">
             <label for="">Description:</label>
-            <input type="text" class="form-control form-control" name="description" value="{{values.description}}" />
+            <input type="text" class="form-control form-control" name="description" value="{{outlay.description}}" />
           </div>
           <div class="form-group mb-3">
             <label for="">Category:</label>
             <select class="form-select" name="category" id="" >
-              <option selected disabled>Select a category</option>
+              <option selected name="category" value="{{outlay.category}}"disabled>{{outlay.category}} </option>
               {% for category in categories %}
                 <option name="category" value="{{category.name}}">{{category.name}} </option>
               {% endfor %}
@@ -40,11 +40,11 @@
           </div>
           <div class="form-group mb-3">
             <label for="">Date:</label>
-            <input type="date" class="form-control form-control" name="outlay_date" />
+            <input type="date" class="form-control form-control" name="outlay_date" value="{{outlay.date}}"/>
           </div>
           <div class="d-grid gap-2 col-6 mx-auto">
             <button class="btn btn-success btn-lg " type="button submit">
-              Add
+              Update
             </button>
           </div>
         </form>

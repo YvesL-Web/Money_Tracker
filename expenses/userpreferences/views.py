@@ -31,8 +31,8 @@ def index(request):
             user_pref.currency=currency
             user_pref.save()
             messages.success(request,f'Currency was updated')
-            return render(request,'preferences/index.html',{'currencies':currency_data, "user_pref":user_pref})
-        else:
-            UserPreference.objects.create(user=request.user, currency=currency)
+            return render(request,'preferences/index.html',{'currencies':currency_data, "user_pref":user_pref})      
+        
+        UserPreference.objects.create(user=request.user, currency=currency)
         messages.info(request,f'Currency is set to {currency}.')
         return render(request,'preferences/index.html', {'currencies':currency_data, "user_pref":user_pref})
