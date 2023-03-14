@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'outlay',
     'users',
-    'userpreferences'
+    'userpreferences',
+    'income'
 ]
 
 MIDDLEWARE = [

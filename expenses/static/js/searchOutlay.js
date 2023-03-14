@@ -5,6 +5,7 @@ tableOutput.style.display='none'
 const mainTable = document.querySelector('.mainTable')
 const paginationBlock = document.querySelector('.paginationBlock')
 
+const noResults = document.querySelector('.no-results')
 const tabBody = document.querySelector('.tabBody')
 
 searchField.addEventListener('keyup', (e)=>{
@@ -20,8 +21,10 @@ searchField.addEventListener('keyup', (e)=>{
             mainTable.style.display='none'
             tableOutput.style.display = 'block'
             if(data.length === 0){
-                tableOutput.innerHTML="No result found"
+                noResults.style.display='block'
+                tableOutput.style.display = "none"
             }else{
+                noResults.style.display = 'none'
                 data.forEach(element => {
                     tabBody.innerHTML +=`
                     <tr>
@@ -29,6 +32,11 @@ searchField.addEventListener('keyup', (e)=>{
                     <td>${element.category}</td>
                     <td>${element.description}</td>
                     <td>${element.date}</td>
+                    <td>
+                     <a href="./edit-outlay/${element.id}" class="btn btn-info" > <i class="fa-solid fa-pen-to-square"></i></a>
+                     <a href="./delete-outlay/${element.id}" class="btn btn-danger" > <i class="fa-solid fa-trash"></i></a>
+                    </td>
+                    
                     </tr>`
                 });
               

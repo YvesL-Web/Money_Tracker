@@ -13,9 +13,9 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="">Expenses</a>
+              <a href="">Income</a>
             </li>
-            <li class="breadcrumb-item active">My Expenses</li>
+            <li class="breadcrumb-item active">My Income</li>
           </ol>
         </nav>
       </div>
@@ -25,8 +25,8 @@
         <a
           class="btn btn-primary"
           type="button"
-          href="{% url 'outlay:add_outlay' %}">
-          Add Expenses
+          href="{% url 'income:add_income' %}">
+          Add Income
         </a>
       </div>
     </div>
@@ -47,7 +47,7 @@
   </div>
   <hr>
   <div class="container mt-3">
-    {% if outlays.count %}
+    {% if income.count %}
 
     <!--MainTable-->
       <div class="mainTable">
@@ -55,22 +55,22 @@
           <thead>
             <tr>
               <th scope="col">Amount ({{currency}} )</th>
-              <th scope="col">Category</th>
+              <th scope="col">Source</th>
               <th scope="col">Description</th>
               <th scope="col">Date</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            {% for outlay in pages %}
+            {% for income in pages %}
               <tr>
-                <th scope="row">{{outlay.amount}}</td>
-                <td>{{outlay.category}}</td>
-                <td>{{outlay.description}}</td>
-                <td>{{outlay.date}}</td>
+                <th scope="row">{{income.amount}}</td>
+                <td>{{income.source}}</td>
+                <td>{{income.description}}</td>
+                <td>{{income.date}}</td>
                 <td> 
-                  <a href="{% url 'outlay:edit_outlay' outlay.pk %}" class="btn btn-info" > <i class="fa-solid fa-pen-to-square"></i></a> 
-                  <a href="{% url 'outlay:delete_outlay' outlay.pk %}" class="btn btn-danger" > <i class="fa-solid fa-trash"></i></a> 
+                  <a href="{% url 'income:edit_income' income.pk %}" class="btn btn-info" > <i class="fa-solid fa-pen-to-square"></i></a> 
+                  <a href="{% url 'income:delete_income' income.pk %}" class="btn btn-danger" > <i class="fa-solid fa-trash"></i></a> 
                 </td>
               </tr>
             {% endfor %}
@@ -85,7 +85,7 @@
           <thead>
             <tr>
               <th scope="col">Amount(Currency)</th>
-              <th scope="col">Category</th>
+              <th scope="col">Source</th>
               <th scope="col">Description</th>
               <th scope="col">Date</th>
               <th scope="col"></th>
@@ -126,5 +126,5 @@
     {% endif %}
   </div>
 </section>
-<script src="{% static 'js/searchOutlay.js' %}"></script>
+<script src="{% static 'js/searchIncome.js' %}"></script>
 {% endblock content %}

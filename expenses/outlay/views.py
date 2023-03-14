@@ -7,6 +7,7 @@ from django.http import JsonResponse
 import json
 
 from .models import Category, Outlay
+from userpreferences.models import UserPreference
 
 # Create your views here.
 @login_required(login_url='users:login')
@@ -16,10 +17,12 @@ def index(request):
     paginator = Paginator(outlays,2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    currency = UserPreference.objects.get(user=request.user).currency
     context={
         'categories': categories,
         'outlays': outlays,
         'pages': page_obj,
+        'currency': currency,
     }
     return render(request,'outlay/index.html', context)
 

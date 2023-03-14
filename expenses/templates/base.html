@@ -33,11 +33,16 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <input
-        class="form-control form-control-dark w-100 rounded-0 border-0"
-        type="text"
-        placeholder="Search"
-        aria-label="Search" />
+      
+      
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <span class="nav-link">
+            <h5> <i class="fa-solid fa-user"></i> - {{request.user.username | title}}</h5>
+          </span>
+        </li>
+      </ul>
+
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <form action="{% url 'users:logout' %}" method="POST">
@@ -62,16 +67,21 @@
     <script
       src="https://code.jquery.com/jquery-3.6.3.min.js"
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-      crossorigin="anonymous"></script>
-
+      crossorigin="anonymous">
+    </script>
+    
     <script
       src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
       integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
+    </script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
       integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
+    </script>
+
     <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

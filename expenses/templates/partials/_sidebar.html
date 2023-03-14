@@ -15,7 +15,7 @@
         <a class="nav-link" href="{% url 'outlay:index' %}"> Expenses </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{% url 'income:index' %}">
           <span data-feather="shopping-cart" class="align-text-bottom"></span>
           Income
         </a>
@@ -47,7 +47,7 @@
     </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="nav-link" href="#"> General </a>
+        <a class="nav-link" href="{% url 'preferences:index' %}"> General </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"> Income Summary </a>
