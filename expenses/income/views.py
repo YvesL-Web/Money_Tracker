@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -5,8 +6,9 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 
 import json
-
+import plotly.express as px
 from .models import Source, Income
+from .forms import FilterDate
 from userpreferences.models import UserPreference
 
 # Create your views here.
@@ -105,3 +107,39 @@ def search_param(request):
             
         data = income.values() # return dictionaries
         return JsonResponse(list(data), safe=False)
+    
+
+def summary_income(request):
+    source_sum = Income.objects.values('source').annotate(total_income=Sum('amount',distinct=True)).filter(user=request.user)
+    start= request.GET.get('start')
+    end= request.GET.get('end')
+    
+
+    if start:
+        source_sum = source_sum.filter(date__gte=start)
+    if end:
+        source_sum = source_sum.filter(date__lte=end)
+
+    
+    x= list(source_sum.values_list('source',flat=True))
+    y= list(source_sum.values_list('total_income',flat=True))
+    # text= [f"{sum:.0f}" for sum in y ]
+
+    # fig = px.bar(
+    #     x=x,
+    #     y=y,
+    #     text=text,
+    #     title= 'Summary',
+    #     labels={'x':'Category', 'y':'expenses'}
+    # )
+    # fig.update_layout(title={
+    #     'font_size':22,
+    #     'xanchor':'center',
+    #     'x':0.5
+    # })
+    # fig.update_traces(textfont_size=12, textangle=0)
+
+
+    # chart = fig.to_html()
+    context = {'form':FilterDate, 'cat':list(x) , 'total':list(y)}
+    return render(request, 'income/summary_income.html', context)

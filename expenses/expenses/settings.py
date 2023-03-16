@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'outlay',
     'users',
     'userpreferences',
-    'income'
+    'income',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -56,10 +57,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'expenses.urls'
-
+INTERNAL_IPS = [
+   "127.0.0.1",
+]
 
 TEMPLATES = [
     {

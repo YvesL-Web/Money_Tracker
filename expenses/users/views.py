@@ -14,6 +14,7 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+import threading
 import json
 from validate_email import validate_email
 from .utils import token_generator
@@ -21,7 +22,13 @@ from .utils import token_generator
 
 # Create your views here.
 
+class EmailThread(threading.Thread):
+    def __init__(self,email):
+        self.email=email
+        threading.Thread.__init__(self)
 
+    def run(self):
+        self.email.send(fail_silently=False)
 
 class RegisterView(View):
     def get(self, request):
@@ -74,7 +81,7 @@ class RegisterView(View):
                     [email],
                     
                 )
-                email.send(fail_silently=False)
+                EmailThread(email).start()
                 messages.success(request,'Account successfully created')
                 return render(request,'users/register.html' )
         
@@ -178,9 +185,9 @@ class ResetPassword(View):
                 'noreply@test.com',
                 [email],
             )
-            email.send(fail_silently=False)
+            EmailThread(email).start()
+
         messages.info(request,"we have sent you an email to reset your password.")
-        
         return render(request, 'users/reset-password.html')
     
 

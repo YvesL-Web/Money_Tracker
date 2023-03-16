@@ -1,0 +1,82 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+<section class="mt-3">
+  <!--alert-->
+  {% include 'partials/_messages.html' %}
+
+    <div class="container">
+        <div class="row">
+            <!--breadcrumb-->
+            <div class="container bg-light rounded col-md-9">
+                <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                    <a href="">Income Summary</a>
+                    </li>
+                    <li class="breadcrumb-item active">Summary</li>
+                </ol>
+                </nav>
+            </div>
+
+            <!--btn-->
+            <div class="col-md-3 mt-1">
+                <a
+                class="btn btn-primary"
+                type="button"
+                href="#">
+                Back
+                </a>
+            </div>
+           
+        </div>
+
+    </div>
+</section>
+
+<section class='mt-5'>
+    <div class="container mt-4">
+        <form action="{% url 'income:summary_income' %}" method="GET">
+            {{form.as_p}}
+            <button type="submit">submit</button>
+        </form> 
+    </div>
+    <div class="container mt-4 mb-4">
+        <canvas id="myChart" width="400" heigth="400"></canvas>
+    </div>
+    
+
+    {% comment %} <div class="container mt-3 p-5">
+        {{ chart|safe }}
+    </div> {% endcomment %}
+</section>
+
+
+{% endblock content %}
+{% block script %}
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: {{cat|safe}},
+        datasets: [{
+            label: 'Income',
+            data: {{total|safe}},
+            borderWidth: 1,
+            backgroundColor:'#73cc70',
+            
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });  
+</script>
+{% endblock script %}
